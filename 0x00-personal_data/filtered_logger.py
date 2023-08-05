@@ -7,7 +7,10 @@ from typing import List
 import re
 
 
-def filter_datum(fields: List, redaction: str, message: str, separator: str):
+def filter_datum(fields: List[str],
+                 redaction: str,
+                 message: str,
+                 separator: str):
     """
     :param fields:
     :param redaction:
@@ -15,7 +18,7 @@ def filter_datum(fields: List, redaction: str, message: str, separator: str):
     :param separator:
     :return:
     """
-    return re.sub(r'(?<={0})[^{1}]+'
-                  .format(separator,separator)
-                  .join(fields), redaction, message)
-
+    for field in fields:
+        message = re.sub(field + '=.*?' + separator,
+                         field + '=' + redaction + separator, message)
+    return message
