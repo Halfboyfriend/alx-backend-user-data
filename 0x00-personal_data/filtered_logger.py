@@ -77,7 +77,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 def main():
     """
-    main entry point
+    main entry points
     """
     db = get_db()
     logger = get_logger()
