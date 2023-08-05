@@ -16,17 +16,24 @@ def filter_datum(
         message: str,
         separator: str
 ):
-    """use a regex to replace occurrences of certain field values"""
+    """
+    use a regex to replace occurrences of certain field values
+    :param fields:
+    :param redaction:
+    :param message:
+    :param separator:
+    :return:
+    """
     for field in fields:
-        message = re.sub(field+'=.*?'+separator,
+        msg = re.sub(field+'=.*?'+separator,
                          field+'='+redaction+separator, message)
-    return message
+    return msg
 
 
 class RedactingFormatter(logging.Formatter):
-    """ Redacting Formatter class
-        """
-
+    """
+    Redacting Formatter class
+    """
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
@@ -37,7 +44,11 @@ class RedactingFormatter(logging.Formatter):
         super(RedactingFormatter, self).__init__(self.FORMAT)
 
     def format(self, record: logging.LogRecord) -> str:
-        """filter records with the filter_datum function"""
+        """
+        filter records with the filter_datum function
+        :param record:
+        :return:
+        """
         log_message = super(RedactingFormatter, self).format(record)
         redacted = filter_datum(
             self.fields, self.REDACTION, log_message, self.SEPARATOR)
@@ -48,7 +59,10 @@ PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
 def get_logger() -> logging.Logger:
-    """Return a logging.Logger object"""
+    """
+    logging
+    :return:
+    """
     logger = logging.getLogger("user_data")
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -63,7 +77,10 @@ def get_logger() -> logging.Logger:
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
-    """connect to the db using path variables"""
+    """
+    connect to the db using path variables
+    :return:
+    """
     user = os.getenv('PERSONAL_DATA_DB_USERNAME') or "root"
     passwd = os.getenv('PERSONAL_DATA_DB_PASSWORD') or ""
     host = os.getenv('PERSONAL_DATA_DB_HOST') or "localhost"
