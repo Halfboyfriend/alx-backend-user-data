@@ -28,6 +28,7 @@ def stats() -> str:
 
 @app_views.route('/unauthorized/', strict_slashes=False)
 def unauthorized() -> None:
-    """Route /api/view/unauthorized"""
+    """Route 
+    /api/view/unauthorized"""
     abort(401)
   
