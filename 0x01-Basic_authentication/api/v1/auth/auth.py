@@ -14,10 +14,11 @@ class Auth:
         if excluded_paths is None or len(excluded_paths) == 0:
             return True
         path = (path + "/") if path[-1] != "/" else path
-        for paths in excluded_paths:
-            if path == paths:
+        for pt in excluded_paths:
+            if path == pt:
                 return False
         return True
+
 
     def authorization_header(self, request=None) -> str:
         """check the authorizatiion header"""
@@ -27,6 +28,7 @@ class Auth:
         if header is None:
             return None
         return header
+
 
     def current_user(self, request=None) -> TypeVar('User'):
         """check the snapshot of the user instance"""
