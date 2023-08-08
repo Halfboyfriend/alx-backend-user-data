@@ -29,7 +29,9 @@ def before_request():
     """Filter user req"""
     if auth is None:
         return
-    ex_paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    ex_paths = ['/api/v1/status/', 
+                '/api/v1/unauthorized/', 
+                '/api/v1/forbidden/']
     if not auth.require_path(request.path, ex_paths):
         return
     if auth.authorization_header(request) is None:
@@ -57,7 +59,6 @@ def forbidden(error) -> str:
     """ Unauthorized handler
     """
     return jsonify({"error": "Forbidden"}), 403
-
 
 
 if __name__ == "__main__":
