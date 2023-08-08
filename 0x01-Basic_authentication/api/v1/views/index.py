@@ -30,3 +30,4 @@ def stats() -> str:
 def unauthorized() -> None:
     """Route /api/view/unauthorized"""
     abort(401)
+  
