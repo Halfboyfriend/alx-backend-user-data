@@ -16,7 +16,6 @@ def _hash_password(password: str) -> bytes:
 
 class Auth:
     """a class to handle the Authentication states"""
-    
     def __init__(self) -> None:
         self._db = DB()
 
@@ -32,7 +31,7 @@ class Auth:
             raise ValueError('User {} already exists.'.format(email))
 
     def valid_login(self, email, password) -> bool:
-        """check whether user has a valid login credentials"""
+        """check whether user has a s"""
         try:
             user = self._db.find_user_by(email=email)
         except NoResultFound:
